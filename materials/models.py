@@ -41,7 +41,7 @@ class Lesson(models.Model):
         verbose_name="Превью урока",
         help_text="Загрузите превью урока",
     )
-    link_to_video = models.TextField(blank=True, null=True)
+    link_to_video = models.URLField(blank=True, null=True)
     course = models.ForeignKey(
         Course,
         on_delete=models.SET_NULL,
