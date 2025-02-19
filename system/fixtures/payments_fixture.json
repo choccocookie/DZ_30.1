@@ -1,0 +1,46 @@
+[
+    {
+        "model": "materials.course",
+        "pk": 1,
+        "fields": {
+            "name": "Python для начинающих",
+            "description": "Основы языка Python, синтаксис и базовые конструкции.",
+            "preview": null
+        }
+    },
+    {
+        "model": "materials.lesson",
+        "pk": 1,
+        "fields": {
+            "name": "Введение в Python",
+            "description": "Первый урок курса, знакомство с Python.",
+            "preview": null,
+            "link_to_video": "https://example.com/intro-to-python",
+            "course": 1
+        }
+    },
+    {
+        "model": "system.payment",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "date": "2024-02-18",
+            "course": 1,
+            "lesson": null,
+            "amount": "100.00",
+            "payment_method": "cash"
+        }
+    },
+    {
+        "model": "system.payment",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "date": "2024-02-19",
+            "course": null,
+            "lesson": 1,
+            "amount": "50.00",
+            "payment_method": "transfer"
+        }
+    }
+]

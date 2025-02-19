@@ -1,0 +1,13 @@
+[
+    {
+        "model": "system.user",
+        "pk": 1,
+        "fields": {
+            "email": "test@example.com",
+            "phone": "+123456789",
+            "сity": "Москва",
+            "avatar": null,
+            "password": "pbkdf2_sha256$216000$randomsalt$hashedpassword"
+        }
+    }
+]
