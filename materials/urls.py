@@ -6,7 +6,7 @@ from materials.views import (
     LessonListApiView,
     LessonRetrieveApiView,
     LessonUpdateApiView,
-    LessonDestroyeApiView,
+    LessonDestroyApiView,
 )
 from materials.apps import MaterialsConfig
 
@@ -20,7 +20,7 @@ urlpatterns = [
     path("lesson/<int:pk>/", LessonRetrieveApiView.as_view(), name="LessonRetrieve"),
     path("lesson/<int:pk>/update/", LessonUpdateApiView.as_view(), name="LessonUpdate"),
     path(
-        "lesson/<int:pk>/delete/", LessonDestroyeApiView.as_view(), name="LessonDestroy"
+        "lesson/<int:pk>/delete/", LessonDestroyApiView.as_view(), name="LessonDestroy"
     ),
     path("lesson/create/", LessonCreateApiView.as_view(), name="LessonCreate"),
 ]

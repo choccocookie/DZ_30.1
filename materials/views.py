@@ -10,7 +10,7 @@ from rest_framework.generics import (
 )
 from materials.models import Course, Lesson
 from materials.serializers import CourseSerializer, LessonSerializer
-from .permissions import IsModerator, IsOwner
+from .permissions import IsModerator, IsOwner, IsNotModerator
 from rest_framework.permissions import IsAuthenticated
 
 
@@ -34,7 +34,7 @@ class CourseViewSet(ModelViewSet):
 class LessonCreateApiView(CreateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsNotModerator]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)  # Привязываем урок к владельцу
@@ -55,29 +55,16 @@ class LessonRetrieveApiView(RetrieveAPIView):
 class LessonUpdateApiView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticated, IsOwner]
 
-    def get_permissions(self):
-        """
-        - Модератор может редактировать любой урок.
-        - Обычные пользователи могут редактировать только свои уроки.
-        """
-        if self.request.user.groups.filter(name="Модератор").exists():
-            return [IsAuthenticated(), IsModerator()]
-        return [IsAuthenticated(), IsOwner()]
+
 
 
 class LessonDestroyApiView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-
-    def get_permissions(self):
-        """
-        - Только владелец урока может его удалить.
-        - Модераторы НЕ МОГУТ удалять уроки.
-        """
-        return [IsAuthenticated(), IsOwner()]
+    permission_classes = [IsAuthenticated, IsOwner]
 
 
-class LessonDestroyeApiView(DestroyAPIView):
-    queryset = Lesson.objects.all()
-    serializer_class = LessonSerializer
+
+
