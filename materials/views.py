@@ -25,10 +25,13 @@ class CourseViewSet(ModelViewSet):
         - Обычные пользователи могут работать только со своими курсами.
         """
         if self.action in ['list', 'retrieve', 'update', 'partial_update']:
-            return [IsAuthenticated(), IsModerator()]
+            return [IsAuthenticated(), IsModerator(), IsOwner()]
         elif self.action in ['destroy', 'create']:
-            return [IsAuthenticated()]  # Только админы
+            return [IsAuthenticated(), IsNotModerator(), IsOwner()]
         return super().get_permissions()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)  # Привязываем курс к владельцу
 
 
 class LessonCreateApiView(CreateAPIView):
@@ -55,7 +58,7 @@ class LessonRetrieveApiView(RetrieveAPIView):
 class LessonUpdateApiView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner, IsModerator]
 
 
 
@@ -63,7 +66,7 @@ class LessonUpdateApiView(UpdateAPIView):
 class LessonDestroyApiView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsAuthenticated, IsOwner]
+    permission_classes = [IsAuthenticated, IsOwner, IsNotModerator]
 
 
 
