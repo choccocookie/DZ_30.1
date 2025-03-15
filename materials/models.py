@@ -18,6 +18,7 @@ class Course(models.Model):
         verbose_name="Превью курса",
         help_text="Загрузите превью курса",
     )
+    link_to_video = models.URLField(blank=True, null=True)
 
     class Meta:
         verbose_name = "Курс"
