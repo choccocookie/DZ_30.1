@@ -147,3 +147,8 @@ SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'materials.paginators.StandardResultsSetPagination',
+    'PAGE_SIZE': 5,  # Количество объектов на странице по умолчанию
+}

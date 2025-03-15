@@ -20,6 +20,7 @@ from django.shortcuts import get_object_or_404
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    pagination_class = StandardResultsSetPagination
 
     def get_permissions(self):
         """
@@ -52,6 +53,7 @@ class LessonListApiView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = StandardResultsSetPagination
 
 
 class LessonRetrieveApiView(RetrieveAPIView):
