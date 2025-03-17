@@ -39,6 +39,12 @@ class CourseViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)  # Привязываем курс к владельцу
 
+    def get_serializer_context(self):
+        """Передаем request в контекст сериализатора"""
+        context = super().get_serializer_context()
+        context['request'] = self.request  # Добавляем request в контекст
+        return context
+
 
 class LessonCreateApiView(CreateAPIView):
     queryset = Lesson.objects.all()

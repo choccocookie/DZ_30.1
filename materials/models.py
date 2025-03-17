@@ -1,5 +1,12 @@
 from django.db import models
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from system.models import User
 
+
+#from django.contrib.auth import get_user_model
+#User = get_user_model()
+import system.models
 
 
 class Course(models.Model):
@@ -52,6 +59,8 @@ class Lesson(models.Model):
         blank=True,
         null=True,
     )
+
+    owner = models.ForeignKey("system.User", on_delete=models.CASCADE, related_name='lessons')
 
     class Meta:
         verbose_name = "Урок"

@@ -16,6 +16,7 @@ class LessonAPITestCase(APITestCase):
         self.course = Course.objects.create(
             name='Курс 1',
             description='Описание курса',
+            preview='Внимание',
             link_to_video='https://www.youtube.com/watch?v=123456'
         )
 
@@ -23,15 +24,17 @@ class LessonAPITestCase(APITestCase):
         self.lesson = Lesson.objects.create(
             name='Урок 1',
             description='Описание урока',
-            course=self.course
+            preview='Внимание',
+            course=self.course,
+            owner=self.user
         )
 
         # URL-адреса для тестирования
-        self.lesson_create_url = reverse('LessonCreate')
-        self.lesson_list_url = reverse('LessonList')
-        self.lesson_detail_url = reverse('LessonRetrieve', kwargs={'pk': self.lesson.pk})
-        self.lesson_update_url = reverse('LessonUpdate', kwargs={'pk': self.lesson.pk})
-        self.lesson_delete_url = reverse('LessonDestroy', kwargs={'pk': self.lesson.pk})
+        self.lesson_create_url = reverse('materials:LessonCreate')
+        self.lesson_list_url = reverse('materials:LessonList')
+        self.lesson_detail_url = reverse('materials:LessonRetrieve', kwargs={'pk': self.lesson.pk})
+        self.lesson_update_url = reverse('materials:LessonUpdate', kwargs={'pk': self.lesson.pk})
+        self.lesson_delete_url = reverse('materials:LessonDestroy', kwargs={'pk': self.lesson.pk})
 
     #Тесты CRUD для уроков
 
@@ -79,7 +82,7 @@ class SubscriptionAPITestCase(APITestCase):
         self.user = User.objects.create_user(email='user@test.com', password='password123')
         self.course = Course.objects.create(name='Курс для подписки', description='Описание курса')
 
-        self.subscribe_url = reverse('subscribe', kwargs={'course_id': self.course.id})
+        self.subscribe_url = reverse('materials:Subscription', kwargs={'course_id': self.course.id})
 
     def test_subscribe_to_course(self):
         """Подписка на курс"""
