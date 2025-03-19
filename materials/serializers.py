@@ -16,6 +16,7 @@ class LessonSerializer(ModelSerializer):
 
 
 class CourseSerializer(ModelSerializer):
+    is_subscribed = serializers.SerializerMethodField()
     lesson_count = SerializerMethodField()
     lessons = LessonSerializer(many=True, read_only= True, source='lesson_set')
     video_link = serializers.URLField(

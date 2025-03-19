@@ -82,12 +82,12 @@ class SubscriptionAPITestCase(APITestCase):
         self.user = User.objects.create_user(email='user@test.com', password='password123')
         self.course = Course.objects.create(name='Курс для подписки', description='Описание курса')
 
-        self.subscribe_url = reverse('materials:Subscription', kwargs={'course_id': self.course.id})
+        self.subscribe_url = reverse('materials:Subscription')
 
     def test_subscribe_to_course(self):
         """Подписка на курс"""
         self.client.force_authenticate(user=self.user)
-        response = self.client.post(self.subscribe_url)
+        response = self.client.post(self.subscribe_url, data={'course_id': self.course.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(Subscription.objects.filter(user=self.user, course=self.course).exists())
 
@@ -95,6 +95,6 @@ class SubscriptionAPITestCase(APITestCase):
         """Отписка от курса"""
         Subscription.objects.create(user=self.user, course=self.course)
         self.client.force_authenticate(user=self.user)
-        response = self.client.post(self.subscribe_url)
+        response = self.client.post(self.subscribe_url, data={'course_id': self.course.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertFalse(Subscription.objects.filter(user=self.user, course=self.course).exists())
