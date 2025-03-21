@@ -28,6 +28,8 @@ class Course(models.Model):
     )
     link_to_video = models.URLField(blank=True, null=True)
 
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"

@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "drf_yasg",
     "system",
     "materials",
     'rest_framework_simplejwt',
@@ -152,3 +153,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'materials.paginators.StandardResultsSetPagination',
     'PAGE_SIZE': 5,  # Количество объектов на странице по умолчанию
 }
+
+STRIPE_PUBLIC_KEY = "pk_test_51R50zsGhBBg3Mh2sP15X4JxDmTBxgipNjHMVPkxqT4Pj94Qf3u8RLPWGBko55CLFQ5xOrwmzcDour7UWbZiTHvIf00C3N25dY6"
+STRIPE_SECRET_KEY = "sk_test_51R50zsGhBBg3Mh2sumKtCVdbWpECg7gWpHtiXrbauaFAogbunJxHfkkR8PBRvs6Jja2g1WVxTSkYsqhQom7C8hsq00M7E6YenU"
