@@ -16,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .paginators import StandardResultsSetPagination
+from materials.task import send_course_update_emails
 
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
@@ -44,6 +45,14 @@ class CourseViewSet(ModelViewSet):
         context = super().get_serializer_context()
         context['request'] = self.request  # Добавляем request в контекст
         return context
+
+    def update_course(request, course_id):
+        course = get_object_or_404(Course, id=course_id)
+        course.save()
+
+        send_course_update_emails.delay(course.id)
+
+        return Response({"message": "Курс обновлен, рассылка запущена"})
 
 
 class LessonCreateApiView(CreateAPIView):

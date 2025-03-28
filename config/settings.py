@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'django_filters',
+    "django_celery_beat",
 
 ]
 
@@ -156,3 +157,19 @@ REST_FRAMEWORK = {
 
 STRIPE_PUBLIC_KEY = "pk_test_51R50zsGhBBg3Mh2sP15X4JxDmTBxgipNjHMVPkxqT4Pj94Qf3u8RLPWGBko55CLFQ5xOrwmzcDour7UWbZiTHvIf00C3N25dY6"
 STRIPE_SECRET_KEY = "sk_test_51R50zsGhBBg3Mh2sumKtCVdbWpECg7gWpHtiXrbauaFAogbunJxHfkkR8PBRvs6Jja2g1WVxTSkYsqhQom7C8hsq00M7E6YenU"
+
+
+CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+# Часовой пояс для работы Celery
+CELERY_TIMEZONE = "Australia/Tasmania"
+
+# Флаг отслеживания выполнения задач
+CELERY_TASK_TRACK_STARTED = True
+
+# Максимальное время на выполнение задачи
+CELERY_TASK_TIME_LIMIT = 30 * 60
