@@ -6,6 +6,7 @@ from datetime import timedelta
 load_dotenv()
 
 from pathlib import Path
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -173,3 +174,11 @@ CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+
+CELERY_BEAT_SCHEDULE = {
+    "block_inactive_users": {
+        "task": "system.tasks.block_inactive_users",
+        "schedule": crontab(hour=0, minute=0),  # Запуск каждый день в полночь
+    },
+}
