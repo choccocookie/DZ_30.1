@@ -92,8 +92,8 @@ DATABASES = {
         "NAME": os.getenv("NAME"),
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "HOST": os.getenv("HOST", "db"),
+        "PORT": os.getenv("PORT", "5442"),
     }
 }
 
@@ -160,11 +160,11 @@ STRIPE_PUBLIC_KEY = "pk_test_51R50zsGhBBg3Mh2sP15X4JxDmTBxgipNjHMVPkxqT4Pj94Qf3u
 STRIPE_SECRET_KEY = "sk_test_51R50zsGhBBg3Mh2sumKtCVdbWpECg7gWpHtiXrbauaFAogbunJxHfkkR8PBRvs6Jja2g1WVxTSkYsqhQom7C8hsq00M7E6YenU"
 
 
-CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0")
 CELERY_ACCEPT_CONTENT = ["json"]
 CELERY_TASK_SERIALIZER = "json"
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = os.getenv("CELERY_BACKEND", "redis://redis:6379/0")
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = "Australia/Tasmania"
