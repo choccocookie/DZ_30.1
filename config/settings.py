@@ -1,4 +1,5 @@
 import os
+import sys
 
 from dotenv import load_dotenv
 from datetime import timedelta
@@ -183,3 +184,11 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": crontab(hour=0, minute=0),  # Запуск каждый день в полночь
     },
 }
+
+if 'test' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'test_db.sqlite3',
+        }
+    }

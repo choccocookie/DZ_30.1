@@ -12,3 +12,4 @@ stripe
 pillow
 gunicorn
 django-redis
+flake8
