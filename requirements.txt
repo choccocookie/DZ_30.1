@@ -10,3 +10,5 @@ djangorestframework-simplejwt
 django-filter
 stripe
 pillow
+gunicorn
+django-redis
